@@ -198,6 +198,18 @@ modelgbm$results[,c(2,4,5,6)]
 
 Looking at the above we have 99% Accuracy in with Boosting models and 93% accuracy with RF with 1/2 of training data which can run in a reasonable time
 
+#out of sample error and Cross validation
+Lets validate the model with the reamining 50% of training data to compare the performance on teh model. This would help us understand the performance of model and out of sample error
+
+```r
+cvtest=redtrain[-trindex,]
+pred2=predict(modelgbm,cvtest)
+cm=confusionMatrix(pred2,cvtest$classe)
+```
+
+The out of sample error with Cross validation is 0.0069317 and is a good measure of the model. We will use this as final model and continue with our prediciton on test data
+
+#Prediction
 Lets predict the output of test data using Boosting model 
 
 ```r

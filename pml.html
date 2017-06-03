@@ -250,6 +250,17 @@ modelred$finalModel[[5]]</code></pre>
 ## 6                 2     150 0.9705934 0.9627986
 ## 9                 3     150 0.9900919 0.9874683</code></pre>
 <p>Looking at the above we have 99% Accuracy in with Boosting models and 93% accuracy with RF with 1/2 of training data which can run in a reasonable time</p>
+</div>
+<div id="out-of-sample-error-and-cross-validation" class="section level1">
+<h1>out of sample error and Cross validation</h1>
+<p>Lets validate the model with the reamining 50% of training data to compare the performance on teh model. This would help us understand the performance of model and out of sample error</p>
+<pre class="r"><code>cvtest=redtrain[-trindex,]
+pred2=predict(modelgbm,cvtest)
+cm=confusionMatrix(pred2,cvtest$classe)</code></pre>
+<p>The out of sample error with Cross validation is 0.0069317 and is a good measure of the model. We will use this as final model and continue with our prediciton on test data</p>
+</div>
+<div id="prediction" class="section level1">
+<h1>Prediction</h1>
 <p>Lets predict the output of test data using Boosting model</p>
 <pre class="r"><code>#Predict the values from the test set
 impcols1=c(impcols,&quot;problem_id&quot;)
