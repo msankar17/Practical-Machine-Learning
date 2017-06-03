@@ -198,7 +198,7 @@ modelgbm$results[,c(2,4,5,6)]
 
 Looking at the above we have 99% Accuracy in with Boosting models and 93% accuracy with RF with 1/2 of training data which can run in a reasonable time
 
-Lets predict the output of test data using Boostig model 
+Lets predict the output of test data using Boosting model 
 
 ```r
 #Predict the values from the test set

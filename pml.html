@@ -195,13 +195,13 @@ train31=train2[trindex1,]
 control1=trainControl(method = &quot;repeatedcv&quot;,number=10,repeats=3)
 model=train(classe~.,data=train31,method=&quot;rf&quot;, preProcess=&quot;pca&quot;, trContrl=control1 )
 model$finalModel[[5]]</code></pre>
-<pre><code>##    A  B  C  D  E class.error
-## A 42  6  3  5  0   0.2500000
-## B 14 16  2  4  2   0.5789474
-## C  8  4 17  3  3   0.5142857
-## D  3  6  4 16  4   0.5151515
-## E  3  5  8  5 16   0.5675676</code></pre>
-<p>seems like out model accuracy is 44.7274473% which is very low and we would perform some more anlysis on that</p>
+<pre><code>##    A  B C  D  E class.error
+## A 41  2 6  5  2   0.2678571
+## B  3 24 3  4  4   0.3684211
+## C 17  2 8  6  2   0.7714286
+## D  4  3 5 17  4   0.4848485
+## E  7  7 4  2 17   0.5405405</code></pre>
+<p>seems like out model accuracy is 47.0743769% which is very low and we would perform some more anlysis on that</p>
 </div>
 <div id="important-variables-through-decision-tree-modeling" class="section level1">
 <h1>Important variables through Decision tree modeling</h1>
@@ -226,12 +226,12 @@ modelred=train(classe~.,data=redtrain1,method=&quot;rf&quot;, preProcess=&quot;p
 
 modelred$finalModel[[5]]</code></pre>
 <pre><code>##      A    B    C    D    E class.error
-## A 2742   33    5    9    1  0.01720430
-## B   89 1706   73   27    4  0.10163244
-## C    5   58 1610   31    7  0.05902981
-## D    3   23   85 1474   23  0.08333333
-## E    2   22   10   47 1723  0.04490022</code></pre>
-<p>The model accuracy has significantly improved to 92.6347297 and the outputs are shown below</p>
+## A 2741   40    7    2    0  0.01756272
+## B  103 1675   76   37    8  0.11795682
+## C    3   60 1603   40    5  0.06312098
+## D    4   25  101 1452   26  0.09701493
+## E    1   15   13   49 1726  0.04323725</code></pre>
+<p>The model accuracy has significantly improved to 92.0623051 and the outputs are shown below</p>
 </div>
 <div id="model-stochastic-gradient-boosting-model-with-important-columns" class="section level1">
 <h1>Model Stochastic Gradient Boosting model with important columns</h1>
@@ -240,16 +240,17 @@ modelred$finalModel[[5]]</code></pre>
 <p>The model is not cross validated, but we would look at the accuracy and kappa metrics as below</p>
 <pre class="r"><code>modelgbm$results[,c(2,4,5,6)]</code></pre>
 <pre><code>##   interaction.depth n.trees  Accuracy     Kappa
-## 1                 1      50 0.7240026 0.6490962
-## 4                 2      50 0.8683571 0.8333484
-## 7                 3      50 0.9298591 0.9112270
-## 2                 1     100 0.7975945 0.7436631
-## 5                 2     100 0.9407211 0.9249833
-## 8                 3     100 0.9762534 0.9699490
-## 3                 1     150 0.8419562 0.8000013
-## 6                 2     150 0.9700561 0.9621077
-## 9                 3     150 0.9896652 0.9869230</code></pre>
+## 1                 1      50 0.7222222 0.6471648
+## 4                 2      50 0.8655150 0.8298109
+## 7                 3      50 0.9307535 0.9124005
+## 2                 1     100 0.7969150 0.7429631
+## 5                 2     100 0.9406653 0.9249392
+## 8                 3     100 0.9774830 0.9715170
+## 3                 1     150 0.8419330 0.8000682
+## 6                 2     150 0.9705934 0.9627986
+## 9                 3     150 0.9900919 0.9874683</code></pre>
 <p>Looking at the above we have 99% Accuracy in with Boosting models and 93% accuracy with RF with 1/2 of training data which can run in a reasonable time</p>
+<p>Lets predict the output of test data using Boosting model</p>
 <pre class="r"><code>#Predict the values from the test set
 impcols1=c(impcols,&quot;problem_id&quot;)
 redtest=orgtest[,names(orgtest) %in% impcols1]
